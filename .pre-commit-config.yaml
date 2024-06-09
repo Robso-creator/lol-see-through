@@ -1,0 +1,82 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+default_language_version:
+  python: python3.10
+exclude: |
+  (?x)(
+        ^.env|
+        ^charts/|
+        ^.k8s/|
+        ^tests/|
+        ^.github/|
+        ^submodule/|
+        ^submodules/|
+        ^.bzr|
+        ^.direnv|
+        ^.eggs|
+        ^.git|
+        ^.hg|
+        ^.mypy_cache|
+        ^.nox|
+        ^.pants.d|
+        ^.ruff_cache|
+        ^.svn|
+        ^.tox|
+        ^.venv/|
+        ^__pypackages__/|
+        ^_build/|
+        ^build/|
+        ^dist/|
+        ^node_modules/|
+        ^venv/|
+        ^.ipynb_checkpoints/|
+        ^.ipynb
+    )
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.2.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+      - id: debug-statements
+      - id: double-quote-string-fixer
+      - id: mixed-line-ending
+        args: [ "--fix=lf" ]
+      - id: requirements-txt-fixer
+      - id: name-tests-test
+        name: Tests starts with 'test'
+        args: [ "--django" ]
+  - repo: https://github.com/dannysepler/rm_unneeded_f_str
+    rev: v0.2.0
+    hooks:
+      - id: rm-unneeded-f-str
+        description: Find and replace unneeded f-strings in your code
+  - repo: https://github.com/hadialqattan/pycln
+    rev: v2.4.0
+    hooks:
+      - id: pycln
+        description: Formatter for finding and removing unused import statements
+        args: [ "--all" ]
+  - repo: https://github.com/asottile/add-trailing-comma
+    rev: v3.1.0
+    hooks:
+      - id: add-trailing-comma
+        description: automatically add trailing commas to calls and literals.
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.15.0
+    hooks:
+      - id: pyupgrade
+        description: automatically upgrade syntax for newer versions of the language
+        args: [ --py38-plus ]
+  - repo: https://github.com/asottile/reorder-python-imports
+    rev: v3.12.0
+    hooks:
+      - id: reorder-python-imports
+        args: [ --py38-plus]
+  - repo: https://github.com/hhatto/autopep8
+    rev: v2.0.4
+    hooks:
+      - id: autopep8
+        description: automatically formats Python code to conform to the PEP 8 style guide
