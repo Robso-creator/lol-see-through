@@ -14,6 +14,12 @@ def player_uuid(tag=None, name=None):
                                   headers=headers).json()
     puuid = puuid_response['puuid']
 
+    return puuid
+
+def summoner_info(puuid):
+    headers = {
+        "X-Riot-Token": settings.RIOT_API,
+    }
     summoner_response = requests.get(f'https://br1.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/{puuid}',
                                      headers=headers).json()
 
@@ -42,7 +48,7 @@ def matches(puuid, start=datetime.now().strftime('%Y-%m-%d'), end=datetime.now()
         'startTime': start,
         'endTime': end,
         'start': '0',
-        'count': '3'
+        'count': '100'
     }
 
     matches_ids = requests.get(f'{core_url}/lol/match/v5/matches/by-puuid/{puuid}/ids', headers=headers, params=params).json()
@@ -57,6 +63,7 @@ def matches(puuid, start=datetime.now().strftime('%Y-%m-%d'), end=datetime.now()
 
 
 if __name__ == '__main__':
-    dd = player_uuid('WBRL', 'WBRL Robshowsz')
-    tt = matches(dd['puuid'], start='2024-10-01')
+    puuid = player_uuid('WBRL', 'WBRL Robshowsz')
+    summoner_data = summoner_info(puuid=puuid)
+    matches_data = matches(puuid=puuid, start='2024-10-01')
     breakpoint()
