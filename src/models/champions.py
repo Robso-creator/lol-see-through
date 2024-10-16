@@ -16,7 +16,7 @@ class Champions(Base):
         Integer, index=True, primary_key=True,
         autoincrement=True, comment='Champion Id',
     )
-    name = Column(String, index=True, comment='Champ name')
+    name = Column(String, index=True, comment='Champion name')
     attack = Column(Integer, comment='Champion attack value')
     defense = Column(Integer, comment='Champion defense value')
     magic = Column(Integer, comment='Champion magic value')
